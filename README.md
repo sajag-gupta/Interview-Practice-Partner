@@ -24,13 +24,75 @@ InterviewProAI simulates realistic interview scenarios across multiple job roles
 
 ### Conversational Quality
 
-**Natural Language Understanding** - Uses Google Gemini 1.5 Flash for superior context retention and conversation coherence across long interview sessions.
+```
+┌─────────────────────────────────────────────────────────┐
+│              Conversation Flow Design                   │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  User Input ──────────────┐                             │
+│                            │                            │
+│                            ▼                            │
+│                  ┌──────────────────┐                   │
+│                  │  Context Manager │                   │
+│                  │  (Full History)  │                   │
+│                  └────────┬─────────┘                   │
+│                           │                             │
+│                           ▼                             │
+│                  ┌──────────────────┐                   │
+│                  │ Gemini 2.5 Flash │                   │
+│                  │  NLU & Response  │                   │
+│                  └────────┬─────────┘                   │
+│                           │                             │
+│         ┌─────────────────┼─────────────────┐           │
+│         │                 │                 │           │
+│         ▼                 ▼                 ▼           │
+│  ┌──────────┐    ┌───────────────┐   ┌─────────┐        │
+│  │Reference │    │Dynamic Follow │   │ Probe   │        │
+│  │Previous  │    │  -up Question │   │Technical│        │
+│  │ Answers  │    │   Generation  │   │ Details │        │
+│  └──────────┘    └───────────────┘   └─────────┘        │
+│                                                         │
+│  Natural, Context-Aware Interview Experience            │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Natural Language Understanding** - Uses Google Gemini 2.5 Flash for superior context retention and conversation coherence across long interview sessions.
 
 **Context-Aware Responses** - Maintains full conversation history to reference previous answers, ask relevant follow-ups, and build upon topics naturally.
 
 **Dynamic Follow-up Generation** - Generates questions dynamically based on responses, probing technical details and exploring concepts rather than following a rigid script.
 
 ### Agentic Behavior
+
+```
+┌────────────────────────────────────────────────────────────┐
+│           Pattern Detection & Adaptation System            │
+├────────────────────────────────────────────────────────────┤
+│                                                            │
+│  User Response ──────────┐                                 │
+│                          │                                 │
+│                          ▼                                 │
+│                ┌──────────────────┐                        │
+│                │ PatternDetector  │                        │
+│                │ Analyze: Length  │                        │
+│                │ Keywords, Context│                        │
+│                └────────┬─────────┘                        │
+│                         │                                  │
+│         ┌───────────────┼───────────────┬────────┐         │
+│         │               │               │        │         │
+│         ▼               ▼               ▼        ▼         │
+│    ┌────────┐    ┌──────────┐    ┌────────┐ ┌──────┐       │
+│    │Confused│    │Efficient │    │ Chatty │ │Edge  │       │ 
+│    │  User  │    │   User   │    │  User  │ │Case  │       │
+│    └───┬────┘    └────┬─────┘    └───┬────┘ └──┬───┘       │
+│        │              │               │         │          │
+│        ▼              ▼               ▼         ▼          │
+│    Guidance       Harder          Redirect   Set           │
+│    & Hints      Questions         Gently   Boundaries      │
+│                                                            │
+│              Autonomous Decision Making                    │
+└────────────────────────────────────────────────────────────┘
+```
 
 **Adaptive Interview Flow** - Makes autonomous decisions about progression, topic depth, and when to provide hints or redirect.
 
@@ -39,6 +101,34 @@ InterviewProAI simulates realistic interview scenarios across multiple job roles
 **Intelligent State Management** - Tracks answered questions, scores, patterns, and context throughout the session for informed decision-making.
 
 ### Technical Implementation Highlights
+
+```
+┌───────────────────────────────────────────────────────┐
+│          Modular Service Architecture                 │
+├───────────────────────────────────────────────────────┤
+│                                                       │
+│              ┌──────────────────────┐                 │
+│              │ InterviewOrchestrator│                 │
+│              │ (Central Coordinator)│                 │
+│              └──────────┬───────────┘                 │
+│                         │                             │
+│        ┌────────────────┼────────────────┐            │
+│        │                │                │            │
+│        ▼                ▼                ▼            │
+│  ┌──────────┐    ┌───────────┐   ┌──────────┐         │
+│  │  Gemini  │    │  Pattern  │   │ Feedback │         │
+│  │ Service  │    │ Detector  │   │Generator │         │
+│  └──────────┘    └───────────┘   └──────────┘         │
+│                                                       │
+│        ▼                                  ▼           │
+│  ┌──────────┐                      ┌──────────┐       │
+│  │ Deepgram │                      │   Zod    │       │
+│  │ Service  │◄────Socket.IO───────►│Validation│       │
+│  └──────────┘                      └──────────┘       │
+│                                                       │
+│  TypeScript Type Safety + React Query Optimization    │
+└───────────────────────────────────────────────────────┘
+```
 
 **Real-time Communication** - Socket.IO enables instant messaging, voice streaming, live pattern detection, and seamless mode switching.
 
@@ -49,6 +139,40 @@ InterviewProAI simulates realistic interview scenarios across multiple job roles
 **Optimistic UI Updates** - React Query provides immediate user feedback during background operations.
 
 ### Intelligence and Adaptability
+
+```
+┌──────────────────────────────────────────────────────────┐
+│         AI Intelligence Decision Framework               │
+├──────────────────────────────────────────────────────────┤
+│                                                          │
+│                   User Input                             │
+│                       │                                  │
+│                       ▼                                  │
+│            ┌────────────────────┐                        │
+│            │  Multi-factor       │                       │
+│            │  Analysis Engine    │                       │
+│            └─────────┬──────────┘                        │
+│                      │                                   │
+│      ┌───────────────┼────────────────┬──────────┐       │
+│      │               │                │          │       │
+│      ▼               ▼                ▼          ▼       │
+│  Skill Level    Progress      Time Constraints  Pattern  │
+│  (Inferred)     Tracking      & Token Limits    Type     │
+│      │               │                │          │       │
+│      └───────────────┴────────┬───────┴──────────┘       │
+│                               │                          │
+│                               ▼                          │
+│                    ┌───────────────────┐                 │
+│                    │ Prompt Engineering │                │
+│                    │ Phase-Specific     │                │
+│                    └────────┬──────────┘                 │
+│                             │                            │
+│                             ▼                            │
+│                    Contextual Response                   │
+│                    + Error Recovery                      │
+│                                                          │
+└──────────────────────────────────────────────────────────┘
+```
 
 **Context Window Management** - Prioritizes recent messages while staying within token limits, summarizing older context when needed.
 
@@ -196,32 +320,32 @@ The application follows a client-server architecture with real-time communicatio
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        Client Layer                          │
-│  ┌────────────┐  ┌──────────────┐  ┌──────────────────┐   │
-│  │ Chat UI    │  │ Voice UI     │  │ Analytics        │   │
-│  │ Component  │  │ Component    │  │ Dashboard        │   │
-│  └─────┬──────┘  └──────┬───────┘  └────────┬─────────┘   │
-│        │                 │                    │              │
-│        └─────────────────┴────────────────────┘              │
-│                          │                                   │
-│                   Socket.IO Client                           │
+│                        Client Layer                         │
+│  ┌────────────┐  ┌──────────────┐  ┌──────────────────┐     │
+│  │ Chat UI    │  │ Voice UI     │  │ Analytics        │     │
+│  │ Component  │  │ Component    │  │ Dashboard        │     │
+│  └─────┬──────┘  └──────┬───────┘  └────────┬─────────┘     │
+│        │                 │                    │             │
+│        └─────────────────┴────────────────────┘             │
+│                          │                                  │
+│                   Socket.IO Client                          │
 └──────────────────────────┼──────────────────────────────────┘
                            │
                     WebSocket Connection
                            │
 ┌──────────────────────────┼──────────────────────────────────┐
-│                   Socket.IO Server                           │
-│                          │                                   │
+│                   Socket.IO Server                          │
+│                          │                                  │
 │  ┌───────────────────────┴────────────────────────┐         │
 │  │        Interview Orchestrator Service          │         │
 │  │  (State Management, Flow Control, Routing)     │         │
-│  └──┬──────────┬──────────────┬──────────────┬───┘         │
-│     │          │              │              │               │
-│  ┌──▼────┐ ┌──▼──────┐ ┌─────▼─────┐ ┌─────▼──────┐       │
-│  │Gemini │ │ Pattern │ │ Feedback  │ │ Deepgram   │       │
-│  │Service│ │Detector │ │ Generator │ │  Service   │       │
-│  └───────┘ └─────────┘ └───────────┘ └────────────┘       │
-│                                                              │
+│  └──┬──────────┬──────────────┬──────────────┬───┘          │
+│     │          │              │              │              │
+│  ┌──▼────┐ ┌──▼──────┐ ┌─────▼─────┐ ┌─────▼──────┐         │
+│  │Gemini │ │ Pattern │ │ Feedback  │ │ Deepgram   │         │
+│  │Service│ │Detector │ │ Generator │ │  Service   │         │
+│  └───────┘ └─────────┘ └───────────┘ └────────────┘         │
+│                                                             │
 │                    Express.js Backend                       │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -278,7 +402,3 @@ InterviewProAI/
 - AI may lack depth in highly specialized roles
 - Scores are estimates, not professional assessments
 - English only
-
-## Contributing
-
-Contributions are welcome. Please ensure all changes maintain type safety, include appropriate error handling, and follow the existing code structure.
