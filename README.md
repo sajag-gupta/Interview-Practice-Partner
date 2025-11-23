@@ -24,7 +24,7 @@ InterviewProAI simulates realistic interview scenarios across multiple job roles
 
 ### Conversational Quality
 
-**Natural Language Understanding** - Uses Google Gemini 1.5 Flash for superior context retention and conversation coherence across long interview sessions.
+**Natural Language Understanding** - Uses Google Gemini 2.5 Flash for superior context retention and conversation coherence across long interview sessions.
 
 **Context-Aware Responses** - Maintains full conversation history to reference previous answers, ask relevant follow-ups, and build upon topics naturally.
 
@@ -278,7 +278,3 @@ InterviewProAI/
 - AI may lack depth in highly specialized roles
 - Scores are estimates, not professional assessments
 - English only
-
-## Contributing
-
-Contributions are welcome. Please ensure all changes maintain type safety, include appropriate error handling, and follow the existing code structure.
