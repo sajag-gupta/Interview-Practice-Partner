@@ -32,9 +32,10 @@ export function useInterview(onInterviewEnded?: (feedback: FeedbackData) => void
   }, [onInterviewEnded]);
 
   useEffect(() => {
-    const socketInstance = io({
-      path: "/socket.io",
-    });
+    const socketUrl = import.meta.env.VITE_SOCKET_URL?.trim();
+    const socketInstance = socketUrl
+      ? io(socketUrl, { path: "/socket.io" })
+      : io({ path: "/socket.io" });
 
     socketInstance.on("connect", () => {
       console.log("Connected to interview server");

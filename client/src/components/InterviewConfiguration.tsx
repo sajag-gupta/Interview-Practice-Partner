@@ -58,8 +58,11 @@ export function InterviewConfiguration({ onConfigReady, role }: InterviewConfigu
       try {
         const jdText = await jdFile.text();
         const resumeText = await resumeFile.text();
-        
-        const socket = io({ path: "/socket.io" });
+
+        const socketUrl = import.meta.env.VITE_SOCKET_URL?.trim();
+        const socket = socketUrl
+          ? io(socketUrl, { path: "/socket.io" })
+          : io({ path: "/socket.io" });
         
         socket.emit("extract_documents", { jdText, resumeText, role });
         

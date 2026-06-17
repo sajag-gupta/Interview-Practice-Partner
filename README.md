@@ -272,6 +272,14 @@ InterviewProAI simulates realistic interview scenarios across multiple job roles
    npm start
    ```
 
+## Netlify Deployment
+
+Netlify can host the React frontend, but not the long-lived Express/Socket.IO server. To deploy there:
+
+1. Set the Netlify build settings to use `npm run build` and publish `dist/public`.
+2. Set `VITE_SOCKET_URL` in Netlify to the URL of your separately hosted Socket.IO backend.
+3. Keep `GEMINI_API_KEY` and `DEEPGRAM_API_KEY` on the backend host, not in the Netlify frontend.
+
 ## Demo Scenarios and Testing
 
 ### The Confused User
