@@ -171,6 +171,8 @@ export class InterviewOrchestrator {
 
     sessionData.patternDetector.addSignal(evaluation, responseTime, message);
     const patternResult = sessionData.patternDetector.getPattern();
+    
+    const previousPattern = sessionData.state.detectedPattern;
     sessionData.state.detectedPattern = patternResult.pattern;
     sessionData.state.patternConfidence = patternResult.confidence;
 

@@ -329,6 +329,8 @@ export function VoiceInterface({ onTranscript, questionId, messages = [], socket
                 ? "Speak naturally. The AI will respond automatically."
                 : status === "speaking"
                 ? "AI is speaking. Please wait..."
+                : status === "processing"
+                ? "Processing your answer..."
                 : "Click the microphone to start speaking"}
             </p>
           </div>

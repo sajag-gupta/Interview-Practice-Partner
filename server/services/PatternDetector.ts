@@ -43,18 +43,26 @@ export class PatternDetector {
     if (avgLength < 15 || avgClarity < 2.5) {
       detectedPattern = "edge_case";
       confidence = Math.min(0.85, 0.5 + (this.signals.length * 0.1));
+      console.log("\nPattern: EDGE CASE");
+      console.log("   Reason: Very short responses or very low clarity");
     }
     else if ((avgClarity < 6 && questionRate > 0.5) || (avgClarity < 5 && avgDepth < 1.8)) {
       detectedPattern = "confused";
       confidence = Math.min(0.9, 0.6 + (this.signals.length * 0.1));
+      console.log("\n Pattern: CONFUSED USER");
+      console.log("   Reason: Low clarity + asking questions OR low clarity + shallow depth");
     }
     else if (avgLength > 40 && avgLength < 250 && avgClarity >= 7 && avgDepth >= 2 && offTopicRate < 0.2) {
       detectedPattern = "efficient";
       confidence = Math.min(0.95, 0.7 + (this.signals.length * 0.08));
+      console.log("\n Pattern: EFFICIENT USER");
+      console.log("   Reason: Concise responses + high clarity + good depth + on-topic");
     }
     else if (avgLength > 400 || offTopicRate > 0.4) {
       detectedPattern = "chatty";
       confidence = Math.min(0.88, 0.6 + (this.signals.length * 0.1));
+      console.log("\n Pattern: CHATTY USER");
+      console.log("   Reason: Very long responses OR high off-topic rate");
     }
 
     this.currentPattern = detectedPattern;
