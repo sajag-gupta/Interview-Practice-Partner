@@ -254,6 +254,8 @@ InterviewProAI simulates realistic interview scenarios across multiple job roles
 
 ## Production Deployment
 
+*Note: Build issues resolved by adding Vite and esbuild dependencies.*
+
 1. Build the application:
    ```bash
    npm run build
