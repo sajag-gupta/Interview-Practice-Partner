@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { VoiceInterface } from "@/components/VoiceInterface";
@@ -11,18 +11,24 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { InterviewConfig, JobRole, InterviewMode } from "@shared/schema";
 import { useInterview } from "@/hooks/useInterview";
+import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { Play, Wifi, WifiOff } from "lucide-react";
 import jsPDF from "jspdf";
 
 type ViewMode = "welcome" | "config" | "interview" | "feedback";
 
-export default function Interview() {
+type InterviewProps = {
+  onExit?: () => void;
+};
+
+export default function Interview({ onExit }: InterviewProps) {
   const [role, setRole] = useState<JobRole>("SDE");
   const [mode, setMode] = useState<InterviewMode>("chat");
   const [config, setConfig] = useState<InterviewConfig | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("welcome");
   const { toast } = useToast();
+  const { saveLastFeedback } = useAuth();
 
   const {
     socket,
@@ -39,10 +45,16 @@ export default function Interview() {
     sendVoiceTranscript,
     executeCommand,
     requestFeedback,
-  } = useInterview(() => {
-    // Callback when interview ends - show feedback view
+  } = useInterview((latestFeedback) => {
+    saveLastFeedback(latestFeedback);
     setViewMode("feedback");
   });
+
+  useEffect(() => {
+    if (feedback) {
+      saveLastFeedback(feedback);
+    }
+  }, [feedback, saveLastFeedback]);
 
   const handleConfigReady = (newConfig: InterviewConfig) => {
     setConfig(newConfig);
@@ -57,6 +69,14 @@ export default function Interview() {
   const handleEndInterview = () => {
     executeCommand("/end");
     setViewMode("feedback");
+    toast({
+      title: "Ending interview",
+      description: "Wrapping up the session and preparing feedback.",
+    });
+  };
+
+  const handleReturnHome = () => {
+    onExit?.();
   };
 
   const handleViewFeedback = () => {
@@ -266,10 +286,21 @@ export default function Interview() {
             {viewMode === "feedback" && (
               <div className="h-full overflow-auto">
                 {feedback ? (
-                  <FeedbackDashboard
-                    feedback={feedback}
-                    onExportPDF={handleExportPDF}
-                  />
+                  <div className="space-y-4 p-6">
+                    <FeedbackDashboard
+                      feedback={feedback}
+                      onExportPDF={handleExportPDF}
+                    />
+                    <div className="flex justify-center pb-4">
+                      <Button
+                        variant="outline"
+                        onClick={handleReturnHome}
+                        data-testid="button-return-home"
+                      >
+                        Return to home
+                      </Button>
+                    </div>
+                  </div>
                 ) : (
                   <div className="flex items-center justify-center h-full">
                     <div className="text-center space-y-3">

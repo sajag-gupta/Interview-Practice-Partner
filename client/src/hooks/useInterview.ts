@@ -13,7 +13,7 @@ import {
 } from "@shared/schema";
 import { useToast } from "./use-toast";
 
-export function useInterview(onInterviewEnded?: () => void) {
+export function useInterview(onInterviewEnded?: (feedback: FeedbackData) => void) {
   const [socket, setSocket] = useState<Socket<ServerToClientEvents, ClientToServerEvents> | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [interviewState, setInterviewState] = useState<InterviewState | null>(null);
@@ -24,6 +24,7 @@ export function useInterview(onInterviewEnded?: () => void) {
   const [isProcessing, setIsProcessing] = useState(false);
   const { toast } = useToast();
   const onInterviewEndedRef = useRef(onInterviewEnded);
+  const pendingAutoExitRef = useRef(false);
 
   // Update ref when callback changes without triggering reconnection
   useEffect(() => {
@@ -82,6 +83,11 @@ export function useInterview(onInterviewEnded?: () => void) {
     socketInstance.on("feedback_ready", (feedbackData: FeedbackData) => {
       console.log("Feedback received:", feedbackData);
       setFeedback(feedbackData);
+
+      if (pendingAutoExitRef.current && onInterviewEndedRef.current) {
+        pendingAutoExitRef.current = false;
+        onInterviewEndedRef.current(feedbackData);
+      }
     });
 
     socketInstance.on("interview_ended", () => {
@@ -89,10 +95,8 @@ export function useInterview(onInterviewEnded?: () => void) {
         title: "Interview Ended",
         description: "Thank you for practicing! Your feedback is ready.",
       });
-      // Trigger callback to show feedback view
-      if (onInterviewEndedRef.current) {
-        onInterviewEndedRef.current();
-      }
+
+      pendingAutoExitRef.current = true;
     });
 
     socketInstance.on("error", (error: string) => {
@@ -113,6 +117,7 @@ export function useInterview(onInterviewEnded?: () => void) {
   const startInterview = useCallback(
     (role: JobRole, mode: InterviewMode, config?: any) => {
       if (socket) {
+        pendingAutoExitRef.current = false;
         setMessages([]);
         setFeedback(null);
         setDetectedPattern(null);
